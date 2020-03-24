@@ -229,11 +229,70 @@ pr3_7:-read(N),r_list(A,N),read(M),N>M,r_list(S,M),subl(S,A).
 sub_l([],_):-!.
 sub_l([H|Ts],[H|T]):-sub_l(Ts,T).
 
-
 subl(S,A):-sub_l(S,A),!.
 subl(S,[_|T]):-sub_l(S,T).
 
 
+read_str(A,N):-get0(X),r_str(X,A,[],N,0).
+r_str(10,A,A,N,N):-!.
+r_str(X,A,B,N,K):-K1 is K+1,append(B,[X],B1),get0(X1),r_str(X1,A,B1,N,K1).
 
+write_str([]):-!.
+write_str([H|T]):-put(H),write_str(T).
+
+pr5_1:-	read_str(A,N),write_str(A),write(', '),write_str(A),write(', '),
+		write_str(A),write(', '),write(N).
+
+pr5_2:-read_str(A,N),count_words(A,K),write(K).
+
+count_words(A,K):-count_words(A,0,K).
+
+count_words([],K,K):-!.
+count_words(A,I,K):-skip_space(A,A1),get_word(A1,Word,A2),Word \=[],I1 is I+1,count_words(A2,I1,K),!.
+count_words(_,K,K).
+
+skip_space([32|T],A1):-skip_space(T,A1),!.
+skip_space(A1,A1).
+
+get_word([],[],[]):-!.
+get_word(A,Word,A2):-get_word(A,[],Word,A2).
+
+get_word([],Word,Word,[]).
+get_word([32|T],Word,Word,T):-!.
+get_word([H|T],W,Word,A2):-append(W,[H],W1),get_word(T,W1,Word,A2).
+
+get_words(A,Words,K):-get_words(A,[],Words,0,K).
+
+get_words([],B,B,K,K):-!.
+get_words(A,Temp_words,B,I,K):-
+	skip_space(A,A1),get_word(A1,Word,A2),Word \=[],
+	I1 is I+1,append(Temp_words,[Word],T_w),get_words(A2,T_w,B,I1,K),!.
+get_words(_,B,B,K,K).
+
+pr5_3:-read_str(A,N),get_words(A,Words,K),uniq_el(Words,Uniq_words),count_elems(Words,Uniq_words,Counts),
+max_in_list(Counts,Imax),num_list(Uniq_words,Imax,Word),write_str(Word).
+
+
+write_list_str([]):-!.
+write_list_str([H|T]):-write_str(H),nl,write_list_str(T).
+
+uniq_el(Ref,Res):-uniq_el(Ref,Res,[]).
+uniq_el([],Res,Res):-!.
+uniq_el([H|T],Res,Cur):-check(H,Cur,Cur,R), uniq_el(T,Res,R).
+check(El,[El|_],Ref,Ref):-!.
+check(El,[],Ref,R):-append(Ref,[El],R),!.
+check(El,[_|T],Ref,R):-check(El,T,Ref,R).
+
+count_elems(A,[],[]):-!.
+count_elems(A,[H|T],[Cur|Tail]):count_el(H,A,Cur,),count_elems(A,T,Tail).
+
+count_el(El,List,Count):-count_el(El,List,Count,0).
+count_el(_,[],Count,Count):-!.
+count_el(El,[El|T],Count,Cur):-Cur1 is Cur+1, count_el(El,T,Count,Cur1),!.
+count_el(El,[_|T],Count,Cur):-count_el(El,T,Count,Cur).
+
+max_in_list(A,N):-max_in_list(A,Max,N).
+max_in_list([H|T],Max,N):-max_in_list(T,Max,N1),Max>H,N is N1+1,!.
+max_in_list([H|_],H,1).
 
 
