@@ -18,16 +18,16 @@ namespace InterfaceProlog
         {
             InitializeComponent();
         }
-        static int[] ans = new int[7];
-        static string[] quest = new string[] {"Есть ли у вашего персонажа механические части тела?",
+        private static int[] ans = new int[7];
+        private static string[] quest = new string[] {"Есть ли у вашего персонажа механические части тела?",
                                                "Ваш персонаж был обладателем стенда?",
                                                "У персонажа светлые волосы?",
                                                 "Ваш персонаж умер от старости?",
                                                   "Ваш персонаж жил в Англии?",
                                                     "Ваш персонаж был вампиром?",
                                                     "Стенд вашего персонажа управляет временем?, "};
-        static int it = 0;
-        static int itstring = 0;       
+        private static int it = 0;
+        private static int itstring = 0;       
         private void formBD_Load(object sender, EventArgs e)
         {
             Environment.SetEnvironmentVariable("SWI_HOME_DIR", @"prolog");
@@ -63,12 +63,13 @@ namespace InterfaceProlog
                 label1.Hide();
                 try
                 {
-                    pictureBox1.Image = Image.FromFile("F:/desktop/Новая папка (14)/aki.png");
+                    pictureBox1.Image = Image.FromFile("F:/desktop/Новая папка (14)/"+ formBD.str[0]+".png");
                 }
                 catch
                 {
                     pictureBox1.Image = Image.FromFile("F:/desktop/Новая папка (14)/aki.png");
                 }
+
             } else {
                 label2.Text = "Ваш персонаж не найден. Желаете добавить?";
                     
@@ -78,10 +79,17 @@ namespace InterfaceProlog
         }
         private void check()
         {
+            string[] p = { "-q" };
+            PlEngine.Initialize(p);
+            PlQuery.PlCall("consult('IZ7.pl')");
+            PlQuery c = new PlQuery("startAkinator");
+            c.NextSolution();
+            str.Clear();
             formBD.itstring = 0;
             PlQuery q = new PlQuery("check(Char,"+ formBD.ans[0].ToString()+ "," + formBD.ans[1].ToString() + "," + formBD.ans[2].ToString() + "," + formBD.ans[3].ToString() + "," + formBD.ans[4].ToString() + "," + formBD.ans[5].ToString() + "," + formBD.ans[6].ToString() + ")");
             foreach (PlTermV s in q.Solutions)
                 formBD.str.Add(s[0].ToString().Trim(new Char[] { '[', ']' }));
+            PlEngine.PlCleanup();
 
             if (formBD.str.Count > 0)
             {
@@ -93,15 +101,16 @@ namespace InterfaceProlog
                
                    
                 label1.Hide();
-                formBD.itstring++;
+                
                 try
                 {
-                    pictureBox1.Image = Image.FromFile("F:/desktop/Новая папка (14)/aki.png");
+                    pictureBox1.Image = Image.FromFile("F:/desktop/Новая папка (14)/" + formBD.str[formBD.itstring] + ".png");
                 }
                 catch
                 {
                     pictureBox1.Image = Image.FromFile("F:/desktop/Новая папка (14)/aki.png");
                 }
+                formBD.itstring++;
             }
             else
             {
@@ -162,11 +171,10 @@ namespace InterfaceProlog
 
         private void button3_Click(object sender, EventArgs e)
         {
-            string[] p = { "-q" };
-            PlEngine.Initialize(p);
-            PlQuery.PlCall("consult('IZ7.pl')");
-            PlQuery c = new PlQuery("startAkinator");
-            c.NextSolution();
+            str.Clear();
+            formBD.itstring = 0;
+
+
 
             it = 0;
             label1.Hide();
@@ -189,15 +197,16 @@ namespace InterfaceProlog
                 button4.Show();
                 button5.Show();
                 label1.Hide();
-                formBD.itstring++;
+                
                 try
                 {
-                    pictureBox1.Image = Image.FromFile("F:/desktop/Новая папка (14)/aki.png");
+                    pictureBox1.Image = Image.FromFile("F:/desktop/Новая папка (14)/" + formBD.str[formBD.itstring] + ".png");
                 }
                 catch
                 {
                     pictureBox1.Image = Image.FromFile("F:/desktop/Новая папка (14)/aki.png");
                 }
+                formBD.itstring++;
             }
             else
             {
@@ -219,7 +228,7 @@ namespace InterfaceProlog
             label1.Text = "Спасибо за игру!!";
             button3.Text = "Новая игра";
             button3.Show();
-            PlEngine.PlCleanup();
+           // PlEngine.PlCleanup();
             button4.Hide();
             button5.Hide();
         }
@@ -243,7 +252,7 @@ namespace InterfaceProlog
             label1.Text = "Спасибо за игру!!";
             button3.Text = "Новая игра";
             button3.Show();
-            PlEngine.PlCleanup();
+           // PlEngine.PlCleanup();
             button6.Hide();
             button7.Hide();
         }
@@ -264,7 +273,7 @@ namespace InterfaceProlog
             label1.Text = "Спасибо за игру!!";
             button3.Text = "Новая игра";
             button3.Show();
-            PlEngine.PlCleanup();
+           // PlEngine.PlCleanup();
             label1.Hide();
             txtcap.Hide();
             

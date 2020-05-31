@@ -1,0 +1,11 @@
+D:\prolog\ind7-8\InterfaceProlog\bin\Release\InterfaceProlog.exe
+D:\prolog\ind7-8\InterfaceProlog\bin\Release\InterfaceProlog.pdb
+D:\prolog\ind7-8\InterfaceProlog\bin\Release\SwiPlCs.dll
+D:\prolog\ind7-8\InterfaceProlog\bin\Release\SwiPlCs.xml
+D:\prolog\ind7-8\InterfaceProlog\obj\x86\Release\InterfaceProlog.formBD.resources
+D:\prolog\ind7-8\InterfaceProlog\obj\x86\Release\InterfaceProlog.Properties.Resources.resources
+D:\prolog\ind7-8\InterfaceProlog\obj\x86\Release\InterfaceProlog.csproj.GenerateResource.cache
+D:\prolog\ind7-8\InterfaceProlog\obj\x86\Release\InterfaceProlog.csproj.CoreCompileInputs.cache
+D:\prolog\ind7-8\InterfaceProlog\obj\x86\Release\InterfaceProlog.csproj.CopyComplete
+D:\prolog\ind7-8\InterfaceProlog\obj\x86\Release\InterfaceProlog.exe
+D:\prolog\ind7-8\InterfaceProlog\obj\x86\Release\InterfaceProlog.pdb

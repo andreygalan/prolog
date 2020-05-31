@@ -1,6 +1,6 @@
 :- dynamic body/2, standus/2, hair/2, dead/2, live/2, vampire/2, time1/2.
 
-startAkinator:- see('D:/ind7-8/InterfaceProlog/bin/Debug/characters.txt'),
+startAkinator:- see('D:/prolog/ind7-8/InterfaceProlog/bin/Debug/characters.txt'),
       readChar, seen.
 
 readChar:- readln(Char),Char \= [],readln(List), assertstart(Char, List),readChar.
@@ -51,7 +51,7 @@ deletevampire:- repeat,(vampire(X,Y) -> retract(vampire(X,Y)), fail;X=nil,Y=nil,
 deletetime1:- repeat,(time1(X,Y) -> retract(time1(X,Y)), fail;X=nil,Y=nil, !).
 
 
-addCharacter(CharName, List):-append('D:/ind7-8/InterfaceProlog/bin/Debug/characters.txt'), nl, write(CharName), nl, write_list(List), told.
+addCharacter(CharName, List):-append('D:/prolog/ind7-8/InterfaceProlog/bin/Debug/characters.txt'), nl, write(CharName), nl, write_list(List), told.
 
 
 write_list([]):-!.

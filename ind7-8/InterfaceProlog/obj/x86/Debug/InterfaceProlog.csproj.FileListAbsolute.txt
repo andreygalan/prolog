@@ -66,3 +66,15 @@ F:\desktop\ind7-8\InterfaceProlog\obj\x86\Debug\InterfaceProlog.csproj.CoreCompi
 F:\desktop\ind7-8\InterfaceProlog\obj\x86\Debug\InterfaceProlog.csproj.CopyComplete
 F:\desktop\ind7-8\InterfaceProlog\obj\x86\Debug\InterfaceProlog.exe
 F:\desktop\ind7-8\InterfaceProlog\obj\x86\Debug\InterfaceProlog.pdb
+D:\prolog\ind7-8\InterfaceProlog\bin\Debug\InterfaceProlog.exe
+D:\prolog\ind7-8\InterfaceProlog\bin\Debug\InterfaceProlog.pdb
+D:\prolog\ind7-8\InterfaceProlog\bin\Debug\SwiPlCs.dll
+D:\prolog\ind7-8\InterfaceProlog\bin\Debug\SwiPlCs.xml
+D:\prolog\ind7-8\InterfaceProlog\obj\x86\Debug\InterfaceProlog.csprojAssemblyReference.cache
+D:\prolog\ind7-8\InterfaceProlog\obj\x86\Debug\InterfaceProlog.formBD.resources
+D:\prolog\ind7-8\InterfaceProlog\obj\x86\Debug\InterfaceProlog.Properties.Resources.resources
+D:\prolog\ind7-8\InterfaceProlog\obj\x86\Debug\InterfaceProlog.csproj.GenerateResource.cache
+D:\prolog\ind7-8\InterfaceProlog\obj\x86\Debug\InterfaceProlog.csproj.CoreCompileInputs.cache
+D:\prolog\ind7-8\InterfaceProlog\obj\x86\Debug\InterfaceProlog.csproj.CopyComplete
+D:\prolog\ind7-8\InterfaceProlog\obj\x86\Debug\InterfaceProlog.exe
+D:\prolog\ind7-8\InterfaceProlog\obj\x86\Debug\InterfaceProlog.pdb

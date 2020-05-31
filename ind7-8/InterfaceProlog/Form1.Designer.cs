@@ -70,7 +70,7 @@
             this.btnCons.Name = "btnCons";
             this.btnCons.Size = new System.Drawing.Size(98, 33);
             this.btnCons.TabIndex = 4;
-            this.btnCons.Text = "Consultar";
+            this.btnCons.Text = "aaaaa";
             this.btnCons.UseVisualStyleBackColor = true;
             this.btnCons.Click += new System.EventHandler(this.btnCons_Click);
             // 
@@ -97,9 +97,9 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = global::InterfaceProlog.Properties.Resources.aki;
-            this.pictureBox1.Location = new System.Drawing.Point(232, 2);
+            this.pictureBox1.Location = new System.Drawing.Point(223, 2);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(208, 277);
+            this.pictureBox1.Size = new System.Drawing.Size(252, 327);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 8;
             this.pictureBox1.TabStop = false;
