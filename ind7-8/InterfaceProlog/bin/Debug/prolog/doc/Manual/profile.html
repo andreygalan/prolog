@@ -1,0 +1,400 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+<head>
+<title>SWI-Prolog 6.3.7 Reference Manual: Section 4.39</title><link rel="home" href="index.html">
+<link rel="contents" href="Contents.html">
+<link rel="index" href="DocIndex.html">
+<link rel="summary" href="summary.html">
+<link rel="previous" href="statistics.html">
+<link rel="next" href="memory.html">
+
+<style type="text/css">
+
+/* Style sheet for SWI-Prolog latex2html
+*/
+
+dd.defbody
+{ margin-bottom: 1em;
+}
+
+dt.pubdef
+{ background-color: #c5e1ff;
+}
+
+dt.multidef
+{ background-color: #c8ffc7;
+}
+
+.bib dd
+{ margin-bottom: 1em;
+}
+
+.bib dt
+{ float: left;
+margin-right: 1.3ex;
+}
+
+pre.code
+{ margin-left: 1.5em;
+margin-right: 1.5em;
+border: 1px dotted;
+padding-top: 5px;
+padding-left: 5px;
+padding-bottom: 5px;
+background-color: #f8f8f8;
+}
+
+div.navigate
+{ text-align: center;
+background-color: #f0f0f0;
+border: 1px dotted;
+padding: 5px;
+}
+
+div.title
+{ text-align: center;
+padding-bottom: 1em;
+font-size: 200%;
+font-weight: bold;
+}
+
+div.author
+{ text-align: center;
+font-style: italic;
+}
+
+div.abstract
+{ margin-top: 2em;
+background-color: #f0f0f0;
+border: 1px dotted;
+padding: 5px;
+margin-left: 10%; margin-right:10%;
+}
+
+div.abstract-title
+{ text-align: center;
+padding: 5px;
+font-size: 120%;
+font-weight: bold;
+}
+
+div.toc-h1
+{ font-size: 200%;
+font-weight: bold;
+}
+
+div.toc-h2
+{ font-size: 120%;
+font-weight: bold;
+margin-left: 2em;
+}
+
+div.toc-h3
+{ font-size: 100%;
+font-weight: bold;
+margin-left: 4em;
+}
+
+div.toc-h4
+{ font-size: 100%;
+margin-left: 6em;
+}
+
+span.sec-nr
+{
+}
+
+span.sec-title
+{
+}
+
+span.pred-ext
+{ font-weight: bold;
+}
+
+span.pred-tag
+{ float: right;
+padding-top: 0.2em;
+font-size: 80%;
+font-style: italic;
+color: #202020;
+}
+
+/* Footnotes */
+
+sup.fn { color: blue; text-decoration: underline; }
+span.fn-text { display: none; }
+sup.fn span {display: none;}
+sup:hover span
+{ display: block !important;
+position: absolute; top: auto; left: auto; width: 80%;
+color: #000; background: white;
+border: 2px solid;
+padding: 5px; margin: 10px; z-index: 100;
+font-size: smaller;
+}
+
+/* Lists */
+
+dl.latex
+{ margin-top: 1ex;
+margin-bottom: 0.5ex;
+}
+
+dl.latex dl.latex dd.defbody
+{ margin-bottom: 0.5ex;
+}
+
+/* PlDoc Tags */
+
+dl.tags
+{ font-size: 90%;
+margin-left: 5ex;
+margin-top: 1ex;
+margin-bottom: 0.5ex;
+}
+
+dl.tags dt
+{ margin-left: 0pt;
+font-weight: bold;
+}
+
+dl.tags dd
+{ margin-left: 3ex;
+}
+
+td.param
+{ font-style: italic;
+font-weight: bold;
+}
+
+/* Index */
+
+dt.index-sep
+{ font-weight: bold;
+font-size: +1;
+margin-top: 1ex;
+}
+</style>
+</head>
+<body bgcolor="white">
+<div class="navigate"><a class="nav" href="index.html"><img src="home.gif" border=0 alt="Home"></A>
+<a class="nav" href="Contents.html"><img src="index.gif" border=0 alt="Contents"></A>
+<a class="nav" href="DocIndex.html"><img src="yellow_pages.gif" border=0 alt="Index"></A>
+<a class="nav" href="summary.html"><img src="info.gif" border=0 alt="Summary"></A>
+<a class="nav" href="statistics.html"><img src="prev.gif" border=0 alt="Previous"></A>
+<a class="nav" href="memory.html"><img src="next.gif" border=0 alt="Next"></A>
+</div>
+
+<h2><a name="sec:4.39"><span class="sec-nr">4.39</span> <span class="sec-title">Execution 
+profiling</span></a></h2>
+
+<a name="sec:profile"></a>
+
+<p>This section describes the hierarchical execution profiler introduced 
+in SWI-Prolog 5.1.10. This profiler is based on ideas from <b>gprof</b> 
+described in <cite><a class="cite" href="Bibliography.html#graham82gprof">Graham <em>et 
+al.</em>, 1982</a></cite>. The profiler consists of two parts: the 
+information-gathering component built into the kernel,<sup class="fn">94<span class="fn-text">There 
+are two implementations; one based on setitimer() using the <code>SIGPROF</code> 
+signal and one using Windows Multi Media (MM) timers. On other systems 
+the profiler is not provided.</span></sup> and a presentation component 
+which is defined in the <code>library(statistics)</code> library. The 
+latter can be hooked, which is used by the XPCE module
+<code>library(swi/pce_profile)</code> to provide an interactive 
+graphical representation of results.
+
+<h3><a name="sec:4.39.1"><span class="sec-nr">4.39.1</span> <span class="sec-title">Profiling 
+predicates</span></a></h3>
+
+<p>Currently, the interface is kept compatible with the old profiler. As 
+experience grows, it is likely that the old interface is replaced with 
+one that better reflects the new capabilities. Feel free to examine the 
+internal interfaces and report useful applications thereof.
+
+<dl class="latex">
+<dt class="pubdef"><a name="profile/1"><strong>profile</strong>(<var>:Goal</var>)</a></dt>
+<dd class="defbody">
+Execute <var>Goal</var> just like <a name="idx:time1:1306"></a><a class="pred" href="statistics.html#time/1">time/1</a>, 
+collecting profiling statistics, and call <code>show_profile(plain, 25)</code>. 
+With XPCE installed this opens a graphical interface to the collected 
+profiling data.</dd>
+<dt class="pubdef"><a name="profile/3"><strong>profile</strong>(<var>:Goal, 
++Style, +Number</var>)</a></dt>
+<dd class="defbody">
+Execute <var>Goal</var> just like <a name="idx:time1:1307"></a><a class="pred" href="statistics.html#time/1">time/1</a>. 
+Collect profiling statistics and show the top <var>Number</var> 
+procedures on the current output stream (see <a name="idx:showprofile1:1308"></a><a class="pred" href="profile.html#show_profile/1">show_profile/1</a>) 
+using <var>Style</var>. The results are kept in the database until <a name="idx:resetprofiler0:1309"></a><a class="pred" href="profile.html#reset_profiler/0">reset_profiler/0</a> 
+or <a name="idx:profile3:1310"></a><a class="pred" href="profile.html#profile/3">profile/3</a> 
+is called and can be displayed again with <a name="idx:showprofile1:1311"></a><a class="pred" href="profile.html#show_profile/1">show_profile/1</a>. 
+The <a name="idx:profile1:1312"></a><a class="pred" href="profile.html#profile/1">profile/1</a> 
+predicate is a backward compatibility interface to <a name="idx:profile1:1313"></a><a class="pred" href="profile.html#profile/1">profile/1</a>. 
+The other predicates in this section are low-level predicates for 
+special cases.</dd>
+<dt class="pubdef"><a name="show_profile/2"><strong>show_profile</strong>(<var>+Style, 
++Number</var>)</a></dt>
+<dd class="defbody">
+Show the collected results of the profiler. It shows the top <var>Number</var> 
+predicates according to the percentage <font size=-1>CPU</font>-time 
+used. If <var>Style</var> is <code>plain</code>, the time spent in each 
+of the predicates is displayed. If <var>Style</var> is <code>cumulative</code>, 
+the time spent in its siblings (callees) is added to the predicate.
+
+<p>This predicate first calls prolog:show_profile_hook/2. If XPCE is 
+loaded, this hook is used to activate a GUI interface to visualise the 
+profile results.</dd>
+<dt class="pubdef"><a name="show_profile/1"><strong>show_profile</strong>(<var>+Number</var>)</a></dt>
+<dd class="defbody">
+Compatibility. Same as <code>show_profile(plain, Number)</code>.</dd>
+<dt class="pubdef"><a name="profiler/2"><strong>profiler</strong>(<var>-Old, 
++New</var>)</a></dt>
+<dd class="defbody">
+Query or change the status of the profiler. The status is a boolean (<code>true</code> 
+or <code>false</code>) stating whether or not the profiler is collecting 
+data. It can be used to enable or disable profiling certain parts of the 
+program.</dd>
+<dt class="pubdef"><a name="reset_profiler/0"><strong>reset_profiler</strong></a></dt>
+<dd class="defbody">
+Switches the profiler to <code>false</code> and clears all collected 
+statistics.</dd>
+<dt class="pubdef"><a name="noprofile/1"><strong>noprofile</strong>(<var>+Name/+Arity, 
+...</var>)</a></dt>
+<dd class="defbody">
+Declares the predicate <var>Name</var>/<var>Arity</var> to be invisible 
+to the profiler. The time spent in the named predicate is added to the 
+caller, and the callees are linked directly to the caller. This is 
+particularly useful for simple meta-predicates such as <a name="idx:call1:1314"></a><a class="pred" href="metacall.html#call/1">call/1</a>, <a name="idx:ignore1:1315"></a><a class="pred" href="metacall.html#ignore/1">ignore/1</a>, <a name="idx:catch3:1316"></a><a class="pred" href="exception.html#catch/3">catch/3</a>, 
+etc.
+</dd>
+</dl>
+
+<h3><a name="sec:4.39.2"><span class="sec-nr">4.39.2</span> <span class="sec-title">Visualizing 
+profiling data</span></a></h3>
+
+<a name="sec:pceprofile"></a>
+
+<p>Browsing the annotated call-tree as described in <a class="sec" href="profile.html">section 
+4.39.3</a> itself is not very attractive. Therefore, the results are 
+combined per predicate, collecting all <em>callers</em> and <em>callees</em> 
+as well as the propagation of time and activations in both directions.
+<a class="fig" href="profile.html#fig:profnode">Figure 5</a> illustrates 
+this. The central yellowish line is the `current' predicate with counts 
+for time spent in the predicate (`Self'), time spent in its children 
+(`Siblings'), activations through the call and redo ports. Above that 
+are the <em>callers</em>. Here, the two time fields indicate how much 
+time is spent serving each of the callers. The columns sum to the time 
+in the yellowish line. The caller
+<em><var>&lt;</var>recursive<var>&gt;</var></em> is the number of 
+recursive calls. Below the yellowish lines are the callees, with the 
+time spent in the callee itself for serving the current predicate and 
+the time spent in the callees of the callee ('Siblings'), so the whole 
+time-block adds up to the `Siblings' field of the current predicate. The 
+`Access' fields show how many times the current predicate accesses each 
+of the callees.
+
+<p>The predicates have a menu that allows changing the view of the 
+detail window to the given caller or callee, showing the documentation 
+(if it is a built-in) and/or jumping to the source.
+
+<p><a name="fig:profnode"></a>
+<center>
+<img src="profnode.gif">
+</center>
+<table align="center" width="75%"><tr><td>
+<b>Figure 5 : </b> Execution profiler showing the activity of the 
+predicate chat:inv_map_list/5.
+</table>
+
+<p>The statistics shown in the report field of <a class="fig" href="profile.html#fig:profnode">figure 
+5</a> show the following information:
+
+<p>
+<ul class="latex">
+<li><i>samples</i><br>
+Number of times the call-tree was sampled for collecting time 
+statistics. On most hardware, the resolution of <code>SIGPROF</code> is 
+1/100 second. This number must be sufficiently large to get reliable 
+timing figures. The <b>Time</b> menu allows viewing time as samples, 
+relative time or absolute time.
+
+<p>
+<li><i>sec</i><br>
+Total user CPU time with the profiler active.
+
+<p>
+<li><i>predicates</i><br>
+Total count of predicates that have been called at least one time during 
+the profile.
+
+<p>
+<li><i>nodes</i><br>
+Number of nodes in the call-tree.
+
+<p>
+<li><i>distortion</i><br>
+How much of the time is spent building the call-tree as a percentage of 
+the total execution time. Timing samples while the profiler is building 
+the call-tree are not added to the call-tree.
+</ul>
+
+<h3><a name="sec:4.39.3"><span class="sec-nr">4.39.3</span> <span class="sec-title">Information 
+gathering</span></a></h3>
+
+<a name="sec:profilegather"></a>
+
+<p>While the program executes under the profiler, the system builds a
+<em>dynamic</em> call-tree. It does this using three hooks from the 
+kernel: one that starts a new goal (<em>profCall</em>), one that tells 
+the system which goal is resumed after an <em>exit</em> (<em>profExit</em>) 
+and one that tells the system which goal is resumed after a <em>fail</em> 
+(i.e., which goal is used to <em>retry</em> (<em>profRedo</em>)). The 
+profCall() function finds or creates the subnode for the argument 
+predicate below the current node, increments the call-count of this link 
+and returns the sub-node which is recorded in the Prolog stack-frame. 
+Choice-points are marked with the current profiling node. profExit() and 
+profRedo() pass the profiling node where execution resumes.
+
+<p>Just using the above algorithm would create a much too big tree due 
+to recursion. For this reason the system performs detection of 
+recursion. In the simplest case, recursive procedures increment the 
+`recursive' count on the current node. Mutual recursion, however, is not 
+easily detected. For example, <a name="idx:call1:1317"></a><a class="pred" href="metacall.html#call/1">call/1</a> 
+can call a predicate that uses <a name="idx:call1:1318"></a><a class="pred" href="metacall.html#call/1">call/1</a> 
+itself. This can be viewed as a recursive invocation, but this is 
+generally not desirable. Recursion is currently assumed if the same 
+predicate <em>with the same parent</em> appears higher in the 
+call-graph. Early experience with some non-trivial programs are 
+promising.
+
+<p>The last part of the profiler collects statistics on the CPU time 
+used in each node. On systems providing setitimer() with
+<code>SIGPROF</code>, it `ticks' the current node of the call-tree each 
+time the timer fires. On Windows, a MM-timer in a separate thread checks 
+100 times per second how much time is spent in the profiled thread and 
+adds this to the current node. See <a class="sec" href="profile.html">section 
+4.39.3.1</a> for details.
+
+<h4><a name="sec:4.39.3.1"><span class="sec-nr">4.39.3.1</span> <span class="sec-title">Profiling 
+in the Windows Implementation</span></a></h4>
+
+<a name="sec:winprofile"></a>
+
+<p>Profiling in the Windows version is similar, but as profiling is a 
+statistical process it is good to be aware of the implementation<sup class="fn">95<span class="fn-text">We 
+hereby acknowledge Lionel Fourquaux, who suggested the design described 
+here after a newsnet enquiry.</span></sup> for proper interpretation of 
+the results.
+
+<p>Windows does not provide timers that fire asynchronously, frequent 
+and proportional to the CPU time used by the process. Windows does 
+provide multi-media timers that can run at high frequency. Such timers, 
+however, run in a separate thread of execution and they are fired on the 
+wall clock rather than the amount of CPU time used. The profiler 
+installs such a timer running, for saving CPU time, rather inaccurately 
+at about 100 Hz. Each time it is fired, it determines the CPU time in 
+milliseconds used by Prolog since the last time it was fired. If this 
+value is non-zero, active predicates are incremented with this value.
+
+<p></body></html>
