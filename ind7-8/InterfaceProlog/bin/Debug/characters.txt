@@ -1,26 +1,29 @@
-Полнареф
-0 1 1 1 1 1 1
-ltbk
-1 1 1 1 1 1 1
-errtyds
-1 1 1 1 1 1 1
-skljgfhd
-1 1 1 1 1 1 1
-sdgfdgsdfs
-1 1 1 1 1 1 1
-jkdsfgu
-0 0 0 0 0 0 0
-sdfgdfg
-1 1 1 1 1 1 1
-sdsfsfas
-0 0 1 0 0 0 0
-fdgsfsdf
-1 1 1 0 1 0 1
-sdfsewr
-1 1 0 1 0 1 0
-qweqwe213
-1 1 1 1 1 1 1
-Грегор
-0 1 1 1 1 1 0
-кеклол
-1 0 1 1 1 0 1
+Star Platinum
+1 1 1 0 1 0 0 0
+Hermit Purple
+1 0 0 0 0 1 0 0
+Hierophant Green
+0 0 0 1 1 1 0 0
+The World
+0 1 1 0 1 0 0 0
+Silver Chariot
+0 1 0 0 1 0 0 0
+The Fool
+0 0 0 0 0 1 1 1
+Tower of Gray
+0 1 0 0 0 0 0 0
+Yellow Temperance
+0 0 0 0 0 1 1 0
+Justice
+0 0 0 1 0 0 1 0
+Crazy Diamond
+1 1 0 0 1 0 0 0
+Khnum
+0 0 0 0 0 1 0 0
+High Priestess
+0 0 0 0 1 1 0 0
+Geb
+0 0 0 0 0 0 0 1
+Magicians Red
+0 0 0 0 1 0 0 1
+
